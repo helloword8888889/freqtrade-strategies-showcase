@@ -19,9 +19,9 @@ All figures are generated from standard Freqtrade backtest exports. Source code,
 | Strategy | Timeframe | Backtest period | Trades | Win rate | Return (10,000 USDT start) | Max drawdown | Profitable months |
 |---|---|---|---|---|---|---|---|
 | SqueezeMomentumFTATRV6 | 4h | 2020-02-22 → 2026-10-05 | 15,010 | 68.5% | **+1,950.9%** (→ 205,094 USDT) | −3.2% | 80 / 81 |
-| B536BestFT | 4h | 2020-01-20 → 2026-10-05 | 30,385 | 40.3% | **+5,568.9%** (→ 566,888 USDT) | −2.4% | 82 / 82 |
-| B533BestFT | 4h | 2020-01-20 → 2026-10-05 | 15,670 | 51.9% | **+3,926.7%** (→ 402,671 USDT) | −3.9% | 78 / 79 |
-| B434BestFT | 4h | 2026-01-01 → 2026-10-05 | 4,393 | 34.4% | **+511.5%** (→ 61,149 USDT) | −1.7% | 10 / 10 |
+| B536FT | 4h | 2020-01-20 → 2026-10-05 | 30,385 | 40.3% | **+5,568.9%** (→ 566,888 USDT) | −2.4% | 82 / 82 |
+| B533FT | 4h | 2020-01-20 → 2026-10-05 | 15,670 | 51.9% | **+3,926.7%** (→ 402,671 USDT) | −3.9% | 78 / 79 |
+| B434FT | 4h | 2026-01-01 → 2026-10-05 | 4,393 | 34.4% | **+511.5%** (→ 61,149 USDT) | −1.7% | 10 / 10 |
 
 *Max drawdown is measured on the backtest wallet curve (peak-to-trough, including unrealized P&L).*
 
@@ -46,21 +46,21 @@ All figures are generated from standard Freqtrade backtest exports. Source code,
 
 Data: [full trade log](data/squeeze_trades_public.csv) · [monthly P&L](data/squeeze_monthly.csv) · [per-pair breakdown](data/squeeze_per_pair.csv)
 
-## 2. B536BestFT
+## 2. B536FT
 
-![B536BestFT equity curve and drawdown](charts/b536_equity_drawdown.png)
+![B536FT equity curve and drawdown](charts/b536_equity_drawdown.png)
 
 - **Period:** 2020-01-20 → 2026-10-05 (6.7 years — crypto winter, two bull cycles, the 2022 crash)
 - **Trades:** 30,385 closed (15,393 long / 14,992 short across 50 pairs)
 - **Win rate:** 40.3% · **Final balance:** 566,888 USDT (**+5,568.9%**)
 - **Max drawdown:** −2.4% · **Not a single losing month in 82 months** (worst month: +164 USDT)
-- **Profitable months:** 82 of 82 · **Best month:** +14,867 USDT
+- **Best month:** +14,867 USDT
 
 Data: [full trade log](data/b536_trades_public.csv) · [monthly P&L](data/b536_monthly.csv) · [per-pair breakdown](data/b536_per_pair.csv)
 
-## 3. B533BestFT
+## 3. B533FT
 
-![B533BestFT equity curve and drawdown](charts/b533_equity_drawdown.png)
+![B533FT equity curve and drawdown](charts/b533_equity_drawdown.png)
 
 - **Period:** 2020-01-20 → 2026-10-05 (6.7 years)
 - **Trades:** 15,670 closed (8,061 long / 7,609 short across 50 pairs)
@@ -70,9 +70,9 @@ Data: [full trade log](data/b536_trades_public.csv) · [monthly P&L](data/b536_m
 
 Data: [full trade log](data/b533_trades_public.csv) · [monthly P&L](data/b533_monthly.csv) · [per-pair breakdown](data/b533_per_pair.csv)
 
-## 4. B434BestFT
+## 4. B434FT
 
-![B434BestFT equity curve and drawdown](charts/b434_equity_drawdown.png)
+![B434FT equity curve and drawdown](charts/b434_equity_drawdown.png)
 
 - **Period:** 2026-01-01 → 2026-10-05
 - **Trades:** 4,393 closed (2,157 long / 2,236 short across 49 pairs)
@@ -86,9 +86,17 @@ All four strategies are documented above; new reports will be added as further s
 
 ---
 
-## Notes & disclaimer
+## Methodology & limitations
 
-These are hypothetical backtest results produced by Freqtrade's backtesting engine. They include exchange fees and funding as modeled by the framework, but live trading additionally faces slippage, latency, partial fills and changing market microstructure, so real results **will** differ. Past performance does not guarantee future results. Nothing here is financial advice or a signal service.
+The three questions every serious client asks — answered up front.
+
+**Repainting / look-ahead bias.** None by design. All strategies run on Freqtrade's event-driven engine: signals are computed on closed candles only, and entries fill at the next candle's open. No indicator touches future data. Every trade in the logs (timestamps, prices, exit reasons) can be spot-checked against Binance's public historical klines.
+
+**Survivorship bias — present, and disclosed.** The 50-pair universe is today's listed USDT perpetuals applied retroactively. Pairs delisted along the way are absent, and newer pairs only trade from their listing date. This flatters the results to a degree — judge them with that in mind. A point-in-time universe re-run is on the roadmap.
+
+**Overfitting / selection bias.** These are tuned, selected strategies; variant selection is itself a bias, so treat headline returns with the skepticism they deserve. The counterweights are sample size and consistency: 65,000+ trades over 6+ years spanning the 2020 crash, the 2021 bull market, the 2022 bear market and the 2024–2026 cycles; 78–82 profitable months out of 79–82 per strategy; drawdowns in low single digits throughout. Final validation is forward-looking by design: walk-forward checks and a public dry-run with live-published trades — backtests propose, forward tests dispose.
+
+**Execution realism.** Freqtrade models fills from candle data with exchange fees and funding included; intra-candle price paths are approximations, and live trading adds slippage, latency and partial fills. Treat every figure here as an upper bound on live performance, not a promise. Past performance does not guarantee future results, and nothing here is financial advice or a signal service.
 
 ## Work with me
 
