@@ -2,7 +2,7 @@
 
 Equity curves, drawdown analysis, monthly returns and **complete trade-by-trade records** for my Freqtrade trading strategies on Binance futures.
 
-> The strategy source code is proprietary and is **not** published. Everything on this page — every percentage, every drawdown — can be re-computed from the full trade logs linked under each strategy. No cherry-picked screenshots: 15,010 and 4,393 closed trades, wins and losses included.
+> The strategy source code is proprietary and is **not** published. Everything on this page — every percentage, every drawdown — can be re-computed from the full trade logs linked under each strategy. No cherry-picked screenshots: 49,788 closed trades across the three reports below, wins and losses included.
 
 ## How these results can be verified
 
@@ -19,6 +19,7 @@ All figures are generated from standard Freqtrade backtest exports. Source code,
 | Strategy | Timeframe | Backtest period | Trades | Win rate | Return (10,000 USDT start) | Max drawdown | Profitable months |
 |---|---|---|---|---|---|---|---|
 | SqueezeMomentumFTATRV6 | 4h | 2020-02-22 → 2026-10-05 | 15,010 | 68.5% | **+1,950.9%** (→ 205,094 USDT) | −3.2% | 80 / 81 |
+| B536BestFT | 4h | 2020-01-20 → 2026-10-05 | 30,385 | 40.3% | **+5,568.9%** (→ 566,888 USDT) | −2.4% | 82 / 82 |
 | B434BestFT | 4h | 2026-01-01 → 2026-10-05 | 4,393 | 34.4% | **+511.5%** (→ 61,149 USDT) | −1.7% | 10 / 10 |
 
 *Max drawdown is measured on the backtest wallet curve (peak-to-trough, including unrealized P&L).*
@@ -44,7 +45,19 @@ All figures are generated from standard Freqtrade backtest exports. Source code,
 
 Data: [full trade log](data/squeeze_trades_public.csv) · [monthly P&L](data/squeeze_monthly.csv) · [per-pair breakdown](data/squeeze_per_pair.csv)
 
-## 2. B434BestFT
+## 2. B536BestFT
+
+![B536BestFT equity curve and drawdown](charts/b536_equity_drawdown.png)
+
+- **Period:** 2020-01-20 → 2026-10-05 (6.7 years — crypto winter, two bull cycles, the 2022 crash)
+- **Trades:** 30,385 closed (15,393 long / 14,992 short across 50 pairs)
+- **Win rate:** 40.3% · **Final balance:** 566,888 USDT (**+5,568.9%**)
+- **Max drawdown:** −2.4% · **Not a single losing month in 82 months** (worst month: +164 USDT)
+- **Profitable months:** 82 of 82 · **Best month:** +14,867 USDT
+
+Data: [full trade log](data/b536_trades_public.csv) · [monthly P&L](data/b536_monthly.csv) · [per-pair breakdown](data/b536_per_pair.csv)
+
+## 3. B434BestFT
 
 ![B434BestFT equity curve and drawdown](charts/b434_equity_drawdown.png)
 
